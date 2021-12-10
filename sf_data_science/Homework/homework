@@ -1,0 +1,43 @@
+import numpy as np
+def ra(number: int = 1) -> int:
+    dr=100
+    count = 0
+    d=50
+    while dr!=number:
+        
+        print(dr,d,count,number)
+        if dr>number:
+            count+=1
+            dr-=d
+            d=round(d/2) 
+        if dr<number:
+            count+=1
+            dr+=d
+            d=round(d/2)
+    return count+1
+def score_game(ra) -> int:
+    """За какое количество попыток в среднем за 1000 подходов угадывает наш алгоритм
+
+    Args:
+        random_predict ([type]): функция угадывания
+
+    Returns:
+        int: среднее количество попыток
+    """
+
+    count_ls = [] # список для сохранения количества попыток
+    np.random.seed(1) # фиксируем сид для вопроизводимости
+    random_array = np.random.randint(1, 101, size=(1000)) # загадали список чисел
+
+    for number in random_array:
+        count_ls.append(ra(number))
+
+    score = int(np.mean(count_ls)) # находим среднее количество попыток
+
+    print(f'Ваш алгоритм угадывает число в среднем за: {score} попыток')
+    return(score)
+
+# RUN
+score_game(ra)
+r=ra(75)
+print(r)
